@@ -1,26 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
+import DashboardPage from './pages/DashboardPage';
+import UrlManagement from './components/UrlManagement';
+import Analytics from './components/Analytics';
+import MarkdownPage from './pages/MarkdownPage';
+import RedirectPage from './pages/RedirectPage';
+import './styles/App.css';
 
-function App() {
+// Main application component
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
+        <Route path="/dashboard" element={<DashboardPage />}>
+          <Route path="urls" element={<UrlManagement />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="markdown" element={<MarkdownPage />} />
+        </Route>
+        <Route path="/:shortCode" element={<RedirectPage />} />
+        <Route path="/not-found" element={<h1>404: URL Not Found</h1>} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
